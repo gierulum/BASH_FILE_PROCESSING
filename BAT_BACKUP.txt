@@ -1,0 +1,63 @@
+
+
+
+@echo off
+setlocal EnableDelayedExpansion
+REM link: https://helloacm.com/how-to-use-array-in-windows-batch-programming/
+REM tworze zmienna 'o' jako liczba operacji na liscie. wartosc startowa = 0. nastepnie tworze liste plikow:
+set o=0
+for %%I in ("E:\DEVELOP\BATSCHER\files\*") do (
+set /A o=o+1 
+set lista_plikow_nazwy[!o!]=%%I
+set lista_plikow_imiona[!o!]=%%~nI
+set lista_plikow_daty[!o!]=%time:~0,2%:%time:~3,2%
+REM sortowanie pliku po imionach:
+echo %lista_plikow_imiona%
+)
+REM lista plikow po ich nazwach:
+for /f "delims== tokens=2" %%x in ('set lista_plikow_imiona') do (echo %%x | sort /r >> file_operations.txt)
+echo %o%
+REM proes przenoszenia plikow do innych folderow:
+for %%G in ("E:\DEVELOP\BATSCHER\files\*") do (
+for /f "tokens=*" %%L in (%G%) do (
+sqlldr GIER/Leopold666@ORCL control=ctl_for_bat.ctl log=log_for_bat.log)
+REM move %%G E:\DEVELOP\BATSCHER\did_files
+echo plik %%~nxG: został przeprocesowany: %DATE% %time:~0,2%:%time:~3,2% >> E:\DEVELOP\BATSCHER\proces_log_file.txt)
+REM zaczytywanie danych:
+REM set odczytajplik=E:\DEVELOP\BATSCHER\proces_log_file.txt
+REM for /f "tokens=*" %%P in (%odczytajplik%) do (echo %%P
+REM sqlldr GIER/Leopold666@ORCL control=ctl_for_bat.ctl log=log_for_bat.log
+)
+pause
+
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+
+
+
+@echo off
+setlocal EnableDelayedExpansion
+REM deklaracja o jako numer pozycji w arrays.
+set o=0
+for %%I in ("C:\DOCUMENTS\BAT_OPERATIONS\BAT_FILES\*") do (
+set /A o=o+1 
+set lista_plikow_nazwy[!o!]=%%I
+set lista_plikow_imiona[!o!]=%%~nI
+set lista_plikow_daty[!o!]=%time:~0,2%:%time:~3,2%
+REM lista plikow po nazwach i sortowanie:
+for /f "delims== tokens=2" %%x in ('set lista_plikow_nazwy') do (
+echo %%x | sort /R >> file_operations.txt
+sort /R file_operations.txt /o file_operations_reverse.txt)
+)
+REM proces przenoszenia plikow do innych folderow:
+for /f %%G in (file_operations_reverse.txt) do (
+for /f "tokens=*" %%L in (%G%) do (
+sqlldr GIER/Leopold666@ORCL control=ctl_for_bat.ctl log=log_for_bat.log)
+move %%G E:\DEVELOP\BATSCHER\did_files
+echo plik %%~nxG: został przeprocesowany: %DATE% %time:~0,2%:%time:~3,2% >> E:\DEVELOP\BATSCHER\proces_log_file.txt)
+REM zaczytywanie danych:
+REM set odczytajplik=E:\DEVELOP\BATSCHER\proces_log_file.txt
+REM for /f "tokens=*" %%P in (%odczytajplik%) do (echo %%P
+REM sqlldr GIER/Leopold666@ORCL control=ctl_for_bat.ctl log=log_for_bat.log
+)
+pause

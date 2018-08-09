@@ -1,0 +1,62 @@
+https://www.youtube.com/watch?v=pnjfEb1QmNI
+https://www.youtube.com/watch?v=MdcHOTr3toU
+
+
+@ECHO OFF - powoduje ze ne otrzymujemy ciezki pliku przy wykonaniu skryptu
+
+-------------------------------------------
+
+clr - czyszczenie tresci
+
+-------------------------------------------
+
+pause - zatrzymanie wykonywania procedury
+
+-------------------------------------------
+//przeskakuje do END
+goto END
+
+...
+
+:END
+
+-------------------------------------------
+
+//przekakuje do start
+:start
+
+...
+
+goto start
+
+
+-------------------------------------------
+
+set /p MATH = first number? - tworzymy zmienna math
+
+%MATH% - wywołanie wartosci zmiennej
+
+-------------------------------------------
+
+echo hi > test.txt [dodanie pierwszego słowa hi do test.txt - nadpisanie nie zadziala]
+echo hi >> test.txt [nadpisanie słowa hi do test.txt]
+
+-------------------------------------------
+
+echo -create (create password)
+echo -check (check password)
+
+echo.   przeskakuje wiersz (nastepny row)
+
+set /p PROGRAM = What do u want?:
+goto %PROGRAM%
+
+:create
+
+:check
+
+
+
+
+
+
